@@ -1,0 +1,10 @@
+[33m0c22979c3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32msimon/dragarea[m[33m, [m[1;31morigin/simon/dragarea[m[33m)[m Remove DragArea.preferred-action
+[33mbd8fe8d49[m Add explicit centers and radius to gradients (#11760)
+[33m9e86f74e8[m Very simple remote viewer screen (#11940)
+[33m11df85dca[m viewer: Use the typed EmptyWindow placeholder in remote mode
+[33m15cb0a277[m compiler: Generate experimental new_with_existing_window constructor
+[33mbeda95f44[m Fix unused preview_debug_message_to_string
+[33m3d1187561[m LSP: allow printing to standard error
+[33m11b4157cf[m Add debug messages to preview protocol
+[33m69bf4bbbb[m Rename Remote Preview to Remote Slint Viewer
+[33m77fbfbc07[m Slint Viewer: Enable `remote` flag by default

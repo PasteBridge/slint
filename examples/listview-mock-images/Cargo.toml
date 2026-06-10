@@ -1,0 +1,16 @@
+[package]
+name = "listview-mock-images"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "ListView with 100 mock images added on button click"
+
+[[bin]]
+name = "listview-mock-images"
+path = "main.rs"
+
+[dependencies]
+slint = { path = "../../api/rs/slint" }
+
+[build-dependencies]
+slint-build = { path = "../../api/rs/build" }

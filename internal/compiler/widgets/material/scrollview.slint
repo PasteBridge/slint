@@ -75,6 +75,7 @@ component ScrollBar inherits Rectangle {
 
         moved => {
             if (self.enabled && self.pressed) {
+
                 // Update reference points when the size of the viewport changes to
                 // avoid 'jumping' during scrolling.
                 // This happens when height estimate of a ListView changes after
@@ -87,6 +88,15 @@ component ScrollBar inherits Rectangle {
                     root.horizontal ? (self.mouse-x - self.saved-values.x) * (root.maximum / (root.width - handle.width))
                                : (self.mouse-y - self.saved-values.y) * (root.maximum / (root.height - handle.height))
                 )));
+
+                // Refresh saved-values every frame so the next frame
+                // computes the delta from the *current*position*.
+                // This matches Flickable's `last_mouse_position = *position`
+                // per-frame update and prevents drift when the two-way
+                // binding has desynchronised the stored value from the
+                // actual viewport state.
+                self.saved-values = { pressed-value: -root.value, maximum: root.maximum, x: self.mouse-x, y: self.mouse-y };
+
                 root.scrolled();
             }
         }

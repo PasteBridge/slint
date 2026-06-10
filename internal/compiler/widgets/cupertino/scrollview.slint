@@ -85,6 +85,11 @@ export component ScrollBar inherits Rectangle {
                     root.horizontal ? (self.mouse-x - self.saved-values.x) * (root.maximum / (root.track-size - thumb.width))
                                : (self.mouse-y - self.saved-values.y) * (root.maximum / (root.track-size - thumb.height))
                 )));
+
+                // Refresh saved-values every frame so the next frame
+                // computes the delta from the *current* position.
+                self.saved-values = { pressed-value: -root.value, maximum: root.maximum, x: self.mouse-x, y: self.mouse-y };
+
                 root.scrolled();
             }
         }

@@ -1,0 +1,108 @@
+// Copyright © SixtyFPS GmbH <info@slint.dev>
+// SPDX-License-Identifier: MIT
+
+import { Button, HorizontalBox, VerticalBox, ListView, GroupBox } from "std-widgets.slint";
+
+export struct ImageItem {
+    image: image,
+    title: string,
+}
+
+component ImageItemRow inherits Rectangle {
+    in-out property <image> image;
+    in-out property <string> title: "";
+    in-out property <int> index: 0;
+
+    height: 96px;
+    horizontal-stretch: 1;
+    background: Math.mod(self.index, 2) == 0 ? #ffffff : #f7f7f9;
+
+    HorizontalBox {
+        alignment: center;
+        spacing: 16px;
+        padding: 8px;
+
+        Rectangle {
+            width: 80px;
+            height: 80px;
+            border-width: 1px;
+            border-color: #dcdce6;
+            border-radius: 6px;
+            clip: true;
+
+            Image {
+                width: parent.width;
+                height: parent.height;
+                source: root.image;
+                image-fit: cover;
+            }
+        }
+
+        VerticalBox {
+            alignment: start;
+            Text {
+                text: root.title;
+                font-size: 14px;
+                color: #1f1f2e;
+                font-weight: 600;
+                wrap: word-wrap;
+            }
+            Text {
+                text: "#" + root.index;
+                font-size: 12px;
+                color: #7a7a8a;
+            }
+        }
+    }
+}
+
+export component App inherits Window {
+    width: 520px;
+    height: 640px;
+    title: "ListView Mock Images";
+
+    in-out property <[ImageItem]> items-model: [];
+    in-out property <int> items-count: root.items-model.length;
+    callback add-100-items();
+    callback clear-items();
+
+    VerticalBox {
+        padding: 12px;
+        spacing: 12px;
+
+        HorizontalBox {
+            spacing: 12px;
+            vertical-stretch: 0;
+
+            Button {
+                text: "添加 100 条 mock 图片";
+                primary: true;
+                clicked => { root.add-100-items(); }
+            }
+            Button {
+                text: "清空";
+                clicked => { root.clear-items(); }
+            }
+            Text {
+                text: "当前条目数：" + root.items-count;
+                color: #4a4a55;
+                vertical-alignment: center;
+                horizontal-stretch: 1;
+            }
+        }
+
+        GroupBox {
+            title: "ListView";
+            vertical-stretch: 1;
+
+            ListView {
+                for item[i] in root.items-model : ImageItemRow {
+                    image: item.image;
+                    title: item.title;
+                    index: i;
+                }
+            }
+        }
+    }
+}
+
